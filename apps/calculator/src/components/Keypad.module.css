@@ -1,0 +1,22 @@
+.keypad {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    'ac c percent divide'
+    'seven eight nine multiply'
+    'four five six subtract'
+    'one two three add'
+    'sign zero decimal equals'
+    'backspace backspace backspace backspace';
+}
+
+.keypad > * {
+  min-width: 0;
+}
+
+@media (max-width: 540px) {
+  .keypad {
+    gap: var(--space-2);
+  }
+}
