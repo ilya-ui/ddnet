@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio cache
+.vs/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Test results
+TestResult*/
+*.TestResults/
+
+# Packages
+*.nupkg
+
+# Dotnet artifacts
+project.lock.json
+artifacts/
+
+# Logs
+*.log
