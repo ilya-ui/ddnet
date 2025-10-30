@@ -1,0 +1,684 @@
+{
+  "sha": "bed9d7df7f72842d62feff2a1038453025c12371",
+  "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/bed9d7df7f72842d62feff2a1038453025c12371",
+  "tree": [
+    {
+      "path": ".github",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4893ecc184a10d1f6cd46c0dbbacad8f63e7567c",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/4893ecc184a10d1f6cd46c0dbbacad8f63e7567c"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cb2e625940b4cbb15f42b73af3214a76d938b1c9",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/cb2e625940b4cbb15f42b73af3214a76d938b1c9"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "96e72a1232ea116db5a3597a6698ef234b3405fc",
+      "size": 603,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/96e72a1232ea116db5a3597a6698ef234b3405fc"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10cc8802775048cf6326b60ccc814c62f3dbf78b",
+      "size": 141,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/10cc8802775048cf6326b60ccc814c62f3dbf78b"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79dd6f12b685fd4d3ba003deed26861e81e61d62",
+      "size": 544,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/79dd6f12b685fd4d3ba003deed26861e81e61d62"
+    },
+    {
+      "path": ".github/close_issue.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24dfd58c672314b66f45237781efd75d8c17c0eb",
+      "size": 2857,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/24dfd58c672314b66f45237781efd75d8c17c0eb"
+    },
+    {
+      "path": ".github/workflows",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a535cddeda494a8260150e5cd08518e20bf35af4",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/a535cddeda494a8260150e5cd08518e20bf35af4"
+    },
+    {
+      "path": ".github/workflows/CloseIssue.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4d8aa9daa820cc1a886110cf53ed145a130a70a",
+      "size": 479,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/e4d8aa9daa820cc1a886110cf53ed145a130a70a"
+    },
+    {
+      "path": ".github/workflows/docker-image-amd64.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9add10b85cbbf19264ba2643028dc356cf0cc21",
+      "size": 1403,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d9add10b85cbbf19264ba2643028dc356cf0cc21"
+    },
+    {
+      "path": ".github/workflows/docker-image-arm64.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e61b378822d7933bc04b24a25a11d47e9f9e597",
+      "size": 1617,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/8e61b378822d7933bc04b24a25a11d47e9f9e597"
+    },
+    {
+      "path": ".github/workflows/github-pages.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51453080ae31d827d97b71a18cf2db0725ced0dc",
+      "size": 1078,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/51453080ae31d827d97b71a18cf2db0725ced0dc"
+    },
+    {
+      "path": ".github/workflows/linux-release.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f274609c9d32bb56350b57fd66a29a16315e28e9",
+      "size": 1306,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/f274609c9d32bb56350b57fd66a29a16315e28e9"
+    },
+    {
+      "path": ".github/workflows/macos-release.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61bba4ffd4619fa63d3c5ed0b5b6a28a4d3c0146",
+      "size": 905,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/61bba4ffd4619fa63d3c5ed0b5b6a28a4d3c0146"
+    },
+    {
+      "path": ".github/workflows/windows-release.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d486b0962adb6753d89dc2bf155eea6d275a55fd",
+      "size": 955,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d486b0962adb6753d89dc2bf155eea6d275a55fd"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd79b058b4c95c690e3e18cadd51d9ca6e54a81e",
+      "size": 128,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/bd79b058b4c95c690e3e18cadd51d9ca6e54a81e"
+    },
+    {
+      "path": "Dockerfile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0dff3d4516e2067c89d9c1012360a5dd70de5fb",
+      "size": 739,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/c0dff3d4516e2067c89d9c1012360a5dd70de5fb"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "size": 35149,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/f288702d2fa16d3cdf0035b15a9fcbc552cd88e7"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "15bfc5872b96d950cd0f0357df38fbb1f5554c2d",
+      "size": 6886,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/15bfc5872b96d950cd0f0357df38fbb1f5554c2d"
+    },
+    {
+      "path": "VERSION",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "check",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9836955f2e814585bd4546d6aee447c0b4bb97a7",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/9836955f2e814585bd4546d6aee447c0b4bb97a7"
+    },
+    {
+      "path": "check/check.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91357cd8b7b8b3ddc15abbc6ef08d087b5743851",
+      "size": 404,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/91357cd8b7b8b3ddc15abbc6ef08d087b5743851"
+    },
+    {
+      "path": "common",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "29c7cf90d3cd19f64f9d0414e243f064c09178d5",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/29c7cf90d3cd19f64f9d0414e243f064c09178d5"
+    },
+    {
+      "path": "common/config",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5a394fc564234398965ca7a653281ad29a34fda5",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/5a394fc564234398965ca7a653281ad29a34fda5"
+    },
+    {
+      "path": "common/config/config.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e447692cf1d154d3a57e0350edf768735691423",
+      "size": 8982,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/2e447692cf1d154d3a57e0350edf768735691423"
+    },
+    {
+      "path": "common/constants.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d3f0f49a90ea1d158c6e7addab2851fde1fd0de8",
+      "size": 5072,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d3f0f49a90ea1d158c6e7addab2851fde1fd0de8"
+    },
+    {
+      "path": "common/database.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d532fa61df93d8ef1d1f4c74062df798d237cb8",
+      "size": 190,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/1d532fa61df93d8ef1d1f4c74062df798d237cb8"
+    },
+    {
+      "path": "common/embed-file-system.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e630a1d8f1822fd17d40ad27a28693bd7d716eaa",
+      "size": 465,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/e630a1d8f1822fd17d40ad27a28693bd7d716eaa"
+    },
+    {
+      "path": "common/env",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "699f13ca5575366cd37f2efb2ecf129526b38641",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/699f13ca5575366cd37f2efb2ecf129526b38641"
+    },
+    {
+      "path": "common/env/helper.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fdb9f827ac255c28d10684b22a28ad94fa515b2c",
+      "size": 775,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/fdb9f827ac255c28d10684b22a28ad94fa515b2c"
+    },
+    {
+      "path": "common/filetype.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e70418ce51ba8a5bd50d280af09949d718d80fcd",
+      "size": 4846,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/e70418ce51ba8a5bd50d280af09949d718d80fcd"
+    },
+    {
+      "path": "common/helper",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e2d2eeee592bd8d8d85dc057335c816d9c34b051",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/e2d2eeee592bd8d8d85dc057335c816d9c34b051"
+    },
+    {
+      "path": "common/helper/helper.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "67b34704590f437e1a4eb86b1fb8fc9d970f60dc",
+      "size": 2549,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/67b34704590f437e1a4eb86b1fb8fc9d970f60dc"
+    },
+    {
+      "path": "common/helper/key.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b02385e027f4d12016b045b02f2055aaf4bd9ab",
+      "size": 57,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/6b02385e027f4d12016b045b02f2055aaf4bd9ab"
+    },
+    {
+      "path": "common/helper/time.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "302746dbff97f33898975a3d6d453d80730160c3",
+      "size": 229,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/302746dbff97f33898975a3d6d453d80730160c3"
+    },
+    {
+      "path": "common/init.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94cf744989de793051f72dcef28e782d47eda43d",
+      "size": 1178,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/94cf744989de793051f72dcef28e782d47eda43d"
+    },
+    {
+      "path": "common/loggger",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e1da5b98ecae6dc656df5d74df0b65bd26d5f03d",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/e1da5b98ecae6dc656df5d74df0b65bd26d5f03d"
+    },
+    {
+      "path": "common/loggger/constants.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "49df31ec7154e6017e427636fa7ec267434ed110",
+      "size": 34,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/49df31ec7154e6017e427636fa7ec267434ed110"
+    },
+    {
+      "path": "common/loggger/logger.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d6c88185cababc1fefbbb12759de488874d1c486",
+      "size": 2342,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d6c88185cababc1fefbbb12759de488874d1c486"
+    },
+    {
+      "path": "common/random",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "10d860f57da77c993b840ef6d29ed732b36f654c",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/10d860f57da77c993b840ef6d29ed732b36f654c"
+    },
+    {
+      "path": "common/random/main.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dbb772cde596a865f0c0a0b57b907d089c3ef9f7",
+      "size": 1272,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/dbb772cde596a865f0c0a0b57b907d089c3ef9f7"
+    },
+    {
+      "path": "common/rate-limit.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "301c101c974809a660c4230843c2ae43289c6464",
+      "size": 1489,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/301c101c974809a660c4230843c2ae43289c6464"
+    },
+    {
+      "path": "common/response.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09c6f26693ec17bbf0509dfee832978ca3766df2",
+      "size": 333,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/09c6f26693ec17bbf0509dfee832978ca3766df2"
+    },
+    {
+      "path": "common/send-res.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fcb0aa90e59d903d9d35ceb6624c7af714218a0a",
+      "size": 210,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/fcb0aa90e59d903d9d35ceb6624c7af714218a0a"
+    },
+    {
+      "path": "common/snowflakeid.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0cdc2fbe8aa0196ec2e6695265f693c46f1fbe47",
+      "size": 851,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/0cdc2fbe8aa0196ec2e6695265f693c46f1fbe47"
+    },
+    {
+      "path": "common/utils.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b8c2cfc643679e04df860432d0db41d3d17afb9c",
+      "size": 5134,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/b8c2cfc643679e04df860432d0db41d3d17afb9c"
+    },
+    {
+      "path": "controller",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2b55e5243e458b04a3363e7f4453859e50fc502a",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/2b55e5243e458b04a3363e7f4453859e50fc502a"
+    },
+    {
+      "path": "controller/chat.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3b1423ca3a478fcb957179680400e869afabea0",
+      "size": 34161,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/f3b1423ca3a478fcb957179680400e869afabea0"
+    },
+    {
+      "path": "cycletls",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4129a2d71633b06b7c641a0613e6c7736ddd3916",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/4129a2d71633b06b7c641a0613e6c7736ddd3916"
+    },
+    {
+      "path": "cycletls/client.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28106cfd44961d493ca4b10aa822e3d250bea838",
+      "size": 2656,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/28106cfd44961d493ca4b10aa822e3d250bea838"
+    },
+    {
+      "path": "cycletls/connect.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4db73cc00e32ad9d04c95010f3f24e6e76e451f7",
+      "size": 9248,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/4db73cc00e32ad9d04c95010f3f24e6e76e451f7"
+    },
+    {
+      "path": "cycletls/cookie.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf8da58fe3d86e3b801c006fc0b6400aaaf7e187",
+      "size": 2683,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/bf8da58fe3d86e3b801c006fc0b6400aaaf7e187"
+    },
+    {
+      "path": "cycletls/errors.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21a84534ae81e3a9f4da3278ae425d487dbd4012",
+      "size": 2115,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/21a84534ae81e3a9f4da3278ae425d487dbd4012"
+    },
+    {
+      "path": "cycletls/extensions.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "00e22a66e45007adf0289c17bdefbb0e595b53c6",
+      "size": 11296,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/00e22a66e45007adf0289c17bdefbb0e595b53c6"
+    },
+    {
+      "path": "cycletls/index.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d77816b030d1f3c916ed73f1cbfe93f50eb83847",
+      "size": 18836,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d77816b030d1f3c916ed73f1cbfe93f50eb83847"
+    },
+    {
+      "path": "cycletls/roundtripper.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65a762b2d3858931d186b439ae75a9e193eb980a",
+      "size": 5555,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/65a762b2d3858931d186b439ae75a9e193eb980a"
+    },
+    {
+      "path": "cycletls/utils.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f1b7cd4ab066a7df87a62ce822c7151d06f9f4db",
+      "size": 10727,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/f1b7cd4ab066a7df87a62ce822c7151d06f9f4db"
+    },
+    {
+      "path": "docker-compose.yml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "239a6c38799256a1ac725d73c14c6e0b7cca5819",
+      "size": 419,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/239a6c38799256a1ac725d73c14c6e0b7cca5819"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2b27f0ba86ce5946573bd82e859dd8eec92a6e6e",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/2b27f0ba86ce5946573bd82e859dd8eec92a6e6e"
+    },
+    {
+      "path": "docs/docs.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c8eaa0dd77207aaa61711ab24f962e4887568af",
+      "size": 5424,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/2c8eaa0dd77207aaa61711ab24f962e4887568af"
+    },
+    {
+      "path": "docs/img.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ce09e1cb4c4acbee9d750a3d03755d3251336ea9",
+      "size": 325789,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/ce09e1cb4c4acbee9d750a3d03755d3251336ea9"
+    },
+    {
+      "path": "docs/swagger.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d0dca29aebdb7d2e81d7dc05985568d785cbb75",
+      "size": 4721,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/9d0dca29aebdb7d2e81d7dc05985568d785cbb75"
+    },
+    {
+      "path": "docs/swagger.yaml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bdc5cc3644336e7e91a7e22c2857ba65daa1e6d",
+      "size": 2158,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/7bdc5cc3644336e7e91a7e22c2857ba65daa1e6d"
+    },
+    {
+      "path": "go.mod",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "135e0374ddd9d914188b6c8794310570e1cebbb0",
+      "size": 2401,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/135e0374ddd9d914188b6c8794310570e1cebbb0"
+    },
+    {
+      "path": "go.sum",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "846a93af4fe82b103e13c22a39f27512bc51682e",
+      "size": 48042,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/846a93af4fe82b103e13c22a39f27512bc51682e"
+    },
+    {
+      "path": "job",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "39d022f4c06fed74462b0080124754d26b56eb1b",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/39d022f4c06fed74462b0080124754d26b56eb1b"
+    },
+    {
+      "path": "job/cookie.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4f6f987cd3bfd1b2100b4abf1d15d910a95a69ed",
+      "size": 5051,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/4f6f987cd3bfd1b2100b4abf1d15d910a95a69ed"
+    },
+    {
+      "path": "lmarena-api",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "51515b7650856ce3e31faa55e86455122f197fa5",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/51515b7650856ce3e31faa55e86455122f197fa5"
+    },
+    {
+      "path": "lmarena-api/api.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "15b80bf9df575b0a9602e6b11ecd76ac6cb47b47",
+      "size": 10180,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/15b80bf9df575b0a9602e6b11ecd76ac6cb47b47"
+    },
+    {
+      "path": "lmarena-api/curl.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b239cecd026a7aab64c6dc0709cf8e876747749d",
+      "size": 8063,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/b239cecd026a7aab64c6dc0709cf8e876747749d"
+    },
+    {
+      "path": "main.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dc5506a5dadec8ff2726b09cac95b5e0ac295c14",
+      "size": 1283,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/dc5506a5dadec8ff2726b09cac95b5e0ac295c14"
+    },
+    {
+      "path": "middleware",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2e5e5559bdf97786363d14b6e630601e1343389a",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/2e5e5559bdf97786363d14b6e630601e1343389a"
+    },
+    {
+      "path": "middleware/auth.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71dc24a08da49770c6a846516c452dee444a7845",
+      "size": 1701,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/71dc24a08da49770c6a846516c452dee444a7845"
+    },
+    {
+      "path": "middleware/cache.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "979734ab2fb2817c1274fc934181001a2d5dd375",
+      "size": 293,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/979734ab2fb2817c1274fc934181001a2d5dd375"
+    },
+    {
+      "path": "middleware/cors.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d2a109abece64ceb4268dcefa1a5dcb7dcf85e67",
+      "size": 355,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/d2a109abece64ceb4268dcefa1a5dcb7dcf85e67"
+    },
+    {
+      "path": "middleware/ip-list.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1aaf13a6791aa797652c8eb151369ea90a921fb3",
+      "size": 660,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/1aaf13a6791aa797652c8eb151369ea90a921fb3"
+    },
+    {
+      "path": "middleware/logger.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5478c51f3c1a2b953856371571dac8c3b22d7085",
+      "size": 559,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/5478c51f3c1a2b953856371571dac8c3b22d7085"
+    },
+    {
+      "path": "middleware/rate-limit.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a76c5044540adf6f50de3dbb0d9f586ee772a4c2",
+      "size": 992,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/a76c5044540adf6f50de3dbb0d9f586ee772a4c2"
+    },
+    {
+      "path": "middleware/request-id.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4034fd014f37a2aa2541c389614e84b11793fc55",
+      "size": 400,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/4034fd014f37a2aa2541c389614e84b11793fc55"
+    },
+    {
+      "path": "model",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0fae94f9293862245e6396c14658d3ae5efc7e23",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/0fae94f9293862245e6396c14658d3ae5efc7e23"
+    },
+    {
+      "path": "model/openai.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc6c8e3c7b5a13a4e07ea5309dec35de1bf7d2ce",
+      "size": 15820,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/fc6c8e3c7b5a13a4e07ea5309dec35de1bf7d2ce"
+    },
+    {
+      "path": "model/token_encoder.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "13d29e269e3be1e4e28f637de01f69273d737373",
+      "size": 6149,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/13d29e269e3be1e4e28f637de01f69273d737373"
+    },
+    {
+      "path": "router",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9a7d0afe54d706af07d7c38fa2ad658165b9358d",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/9a7d0afe54d706af07d7c38fa2ad658165b9358d"
+    },
+    {
+      "path": "router/api-router.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "db6c611842a12129c180cb6e141a224cae1b5943",
+      "size": 1260,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/db6c611842a12129c180cb6e141a224cae1b5943"
+    },
+    {
+      "path": "router/main.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6e7ea812f3605d206038f5355c4a7bd9dacc0bef",
+      "size": 740,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/6e7ea812f3605d206038f5355c4a7bd9dacc0bef"
+    },
+    {
+      "path": "router/web.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de52b464f326bd20e1dbd6ad38b857a2bc2f820b",
+      "size": 1516,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/de52b464f326bd20e1dbd6ad38b857a2bc2f820b"
+    },
+    {
+      "path": "yescaptcha",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b1c88a75c11a0cf258c05b8321337bcac28f3fea",
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/trees/b1c88a75c11a0cf258c05b8321337bcac28f3fea"
+    },
+    {
+      "path": "yescaptcha/api.go",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfc82af5843e7acf4b0fff4a2c9b8cac6ed5940a",
+      "size": 6373,
+      "url": "https://api.github.com/repos/deanxv/lmarena2api/git/blobs/bfc82af5843e7acf4b0fff4a2c9b8cac6ed5940a"
+    }
+  ],
+  "truncated": false
+}
