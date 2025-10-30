@@ -13,6 +13,7 @@ if errorlevel 1 goto install_failed
 echo.
 echo Launching LMArena Gemini Proxy...
 set "LMARENA_PROXY_NO_PAUSE=0"
+set "PYTHONPATH=%~dp0src"
 py -m lmarena_proxy.main
 set "EXIT_CODE=%ERRORLEVEL%"
 
