@@ -42,4 +42,10 @@ class CookiePool:
             self._index %= len(self._cookies)
 
     def __len__(self) -> int:  # pragma: no cover - trivial
-        return len(self._cookies)
+        with self._lock:
+            return len(self._cookies)
+
+    def snapshot(self) -> List[str]:
+        """Return a copy of the currently available cookies."""
+        with self._lock:
+            return list(self._cookies)

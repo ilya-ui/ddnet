@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import logging
-from typing import AsyncGenerator
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -49,11 +48,8 @@ async def chat_completions(request: ChatCompletionRequest) -> JSONResponse | Str
     client = get_client()
     try:
         if request.stream:
-            async def streamer() -> AsyncGenerator[str, None]:
-                generator = client.chat_completion_stream(request)
-                for chunk in generator:
-                    yield chunk
-            return StreamingResponse(streamer(), media_type="text/event-stream")
+            stream_generator = await run_in_threadpool(client.chat_completion_stream, request)
+            return StreamingResponse(stream_generator, media_type="text/event-stream")
         response = await run_in_threadpool(client.chat_completion, request)
         return JSONResponse(response.model_dump())
     except ArenaAPIError as exc:

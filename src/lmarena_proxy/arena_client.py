@@ -1,12 +1,13 @@
 """Low-level client for interacting with the canary.lmarena.ai API."""
 from __future__ import annotations
 
+import itertools
 import json
 import logging
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Dict, Generator, Iterable, List, Optional, Tuple
+from typing import Callable, Dict, Generator, Iterable, Iterator, List, Optional, Tuple, TypeVar
 
 from curl_cffi import requests
 from curl_cffi.requests import RequestsError
@@ -42,6 +43,8 @@ MODEL_ALIASES: Dict[str, str] = {
 
 RESPONSE_ID_FORMAT = "chatcmpl-%s"
 
+T = TypeVar("T")
+
 
 class ArenaAPIError(RuntimeError):
     """Server side error from LMArena."""
@@ -73,79 +76,61 @@ class ArenaClient:
     def chat_completion(self, request: ChatCompletionRequest) -> ChatCompletionResponse:
         resolved_model = self._resolve_model(request.model)
         payload = self._build_payload(request.messages, resolved_model)
-        cookie = self._cookie_pool.next()
-        response_id = RESPONSE_ID_FORMAT % uuid.uuid4().hex
-        accumulated: List[str] = []
 
-        for chunk in self._stream_payload(payload, cookie):
-            if chunk.text:
-                accumulated.append(chunk.text)
-            if not chunk.continue_stream:
-                break
+        def execute(cookie: str) -> ChatCompletionResponse:
+            response_id = RESPONSE_ID_FORMAT % uuid.uuid4().hex
+            created_ts = int(time.time())
+            accumulated: List[str] = []
 
-        assistant_message = "".join(accumulated)
-        created_ts = int(time.time())
-        choice = Choice(
-            index=0,
-            message=ChatMessage(role="assistant", content=assistant_message),
-            finish_reason="stop",
-        )
-        return ChatCompletionResponse(
-            id=response_id,
-            object="chat.completion",
-            created=created_ts,
-            model=resolved_model,
-            choices=[choice],
-        )
+            for chunk in self._stream_payload(payload, cookie):
+                if chunk.text:
+                    accumulated.append(chunk.text)
+                if not chunk.continue_stream:
+                    break
+
+            assistant_message = "".join(accumulated)
+            choice = Choice(
+                index=0,
+                message=ChatMessage(role="assistant", content=assistant_message),
+                finish_reason="stop",
+            )
+            return ChatCompletionResponse(
+                id=response_id,
+                object="chat.completion",
+                created=created_ts,
+                model=resolved_model,
+                choices=[choice],
+            )
+
+        return self._with_cookies(execute)
 
     def chat_completion_stream(self, request: ChatCompletionRequest) -> Generator[str, None, None]:
         resolved_model = self._resolve_model(request.model)
         payload = self._build_payload(request.messages, resolved_model)
-        cookie = self._cookie_pool.next()
-        created_ts = int(time.time())
-        response_id = RESPONSE_ID_FORMAT % uuid.uuid4().hex
-        role_sent = False
 
-        try:
-            for chunk in self._stream_payload(payload, cookie):
-                if chunk.text:
-                    delta = DeltaMessage(
-                        role="assistant" if not role_sent else None,
-                        content=chunk.text,
-                    )
-                    role_sent = True
-                    packet = {
-                        "id": response_id,
-                        "object": "chat.completion.chunk",
-                        "created": created_ts,
-                        "model": resolved_model,
-                        "choices": [
-                            {
-                                "index": 0,
-                                "delta": delta.model_dump(exclude_none=True),
-                                "finish_reason": None,
-                            }
-                        ],
-                    }
-                    yield f"data: {json.dumps(packet, ensure_ascii=False)}\n\n"
-                if not chunk.continue_stream:
-                    final_packet = {
-                        "id": response_id,
-                        "object": "chat.completion.chunk",
-                        "created": created_ts,
-                        "model": resolved_model,
-                        "choices": [
-                            {
-                                "index": 0,
-                                "delta": {},
-                                "finish_reason": "stop",
-                            }
-                        ],
-                    }
-                    yield f"data: {json.dumps(final_packet, ensure_ascii=False)}\n\n"
-                    break
-        finally:
-            yield "data: [DONE]\n\n"
+        def open_stream(cookie: str) -> Tuple[str, int, str, List[SSEChunk], Iterator[SSEChunk]]:
+            response_id = RESPONSE_ID_FORMAT % uuid.uuid4().hex
+            created_ts = int(time.time())
+            base_stream = self._stream_payload(payload, cookie)
+            preloaded: List[SSEChunk] = []
+            try:
+                first_chunk = next(base_stream)
+            except StopIteration:
+                pass
+            except ArenaAPIError:
+                raise
+            else:
+                preloaded.append(first_chunk)
+            return cookie, created_ts, response_id, preloaded, base_stream
+
+        cookie, created_ts, response_id, preloaded, stream_iter = self._with_cookies(open_stream)
+        return self._emit_sse_events(
+            cookie,
+            resolved_model,
+            created_ts,
+            response_id,
+            itertools.chain(preloaded, stream_iter),
+        )
 
     # ------------------------------------------------------------------
     # Internal helpers
@@ -156,6 +141,50 @@ class ArenaClient:
         if canonical not in MODEL_REGISTRY:
             raise ArenaAPIError(f"Model '{requested_model}' is not supported by this bridge.")
         return canonical
+
+    def _with_cookies(self, func: Callable[[str], T]) -> T:
+        if len(self._cookie_pool) == 0:
+            raise ArenaAPIError("All arena-auth cookies are exhausted.")
+        max_attempts = max(1, len(self._cookie_pool)) * 2  # allow retries if cookies are banned mid-loop
+        attempts = 0
+        last_exc: Optional[ArenaAPIError] = None
+
+        while attempts < max_attempts:
+            if len(self._cookie_pool) == 0:
+                break
+            cookie = self._cookie_pool.next()
+            try:
+                return func(cookie)
+            except ArenaAPIError as exc:
+                last_exc = exc
+                if self._should_ban_cookie(exc):
+                    try:
+                        self._cookie_pool.ban(cookie)
+                    except RuntimeError:
+                        break
+                    max_attempts = max(1, len(self._cookie_pool)) * 2
+                    attempts += 1
+                    continue
+                raise
+            attempts += 1
+
+        if last_exc:
+            raise last_exc
+        raise ArenaAPIError("All arena-auth cookies are exhausted.")
+
+    @staticmethod
+    def _should_ban_cookie(exc: ArenaAPIError) -> bool:
+        if exc.status_code in {401, 403}:
+            return True
+        message = str(exc).lower()
+        ban_triggers = [
+            "invalid token",
+            "not login",
+            "usage limit",
+            "too many concurrent requests",
+            "rate limited",
+        ]
+        return any(trigger in message for trigger in ban_triggers)
 
     def _build_payload(self, messages: Iterable[ChatMessage], model_name: str) -> Dict[str, object]:
         model_info = MODEL_REGISTRY[model_name]
@@ -263,12 +292,10 @@ class ArenaClient:
         url = f"{settings.api_base_url}/api/stream/create-evaluation"
         data = json.dumps(payload, ensure_ascii=False)
         headers = self._request_headers(cookie_value)
-        params = {
-            "impersonate": settings.impersonate,
-            "timeout": settings.request_timeout,
-        }
+
+        proxies = None
         if settings.proxy_url:
-            params["proxies"] = {"https": settings.proxy_url, "http": settings.proxy_url}
+            proxies = {"https": settings.proxy_url, "http": settings.proxy_url}
 
         try:
             response = requests.post(
@@ -278,7 +305,7 @@ class ArenaClient:
                 stream=True,
                 impersonate=settings.impersonate,
                 timeout=settings.request_timeout,
-                proxies=params.get("proxies"),
+                proxies=proxies,
             )
         except RequestsError as exc:
             raise ArenaAPIError(f"Failed to reach LMArena: {exc}") from exc
@@ -290,25 +317,87 @@ class ArenaClient:
                 status_code=response.status_code,
             )
 
-        for raw_line in response.iter_lines(decode_unicode=True):
-            if raw_line is None:
-                continue
-            line = raw_line.strip()
-            if not line:
-                continue
-            if not line.startswith("data:"):
-                continue
-            payload_text = line[5:].strip()
-            if not payload_text:
-                continue
-            chunk = self._parse_stream_payload(payload_text)
-            if chunk is None:
-                continue
-            yield chunk
-            if not chunk.continue_stream:
-                break
+        try:
+            for raw_line in response.iter_lines(decode_unicode=True):
+                if raw_line is None:
+                    continue
+                line = raw_line.strip()
+                if not line or not line.startswith("data:"):
+                    continue
+                payload_text = line[5:].strip()
+                if not payload_text:
+                    continue
+                chunk = self._parse_stream_payload(payload_text)
+                if chunk is None:
+                    continue
+                yield chunk
+                if not chunk.continue_stream:
+                    break
+        finally:
+            response.close()
 
-        response.close()
+    def _emit_sse_events(
+        self,
+        cookie: str,
+        model_name: str,
+        created_ts: int,
+        response_id: str,
+        stream: Iterator[SSEChunk],
+    ) -> Generator[str, None, None]:
+        role_sent = False
+        completed = False
+        try:
+            for chunk in stream:
+                if chunk is None:
+                    continue
+                if chunk.text:
+                    delta = DeltaMessage(
+                        role="assistant" if not role_sent else None,
+                        content=chunk.text,
+                    )
+                    role_sent = True
+                    packet = {
+                        "id": response_id,
+                        "object": "chat.completion.chunk",
+                        "created": created_ts,
+                        "model": model_name,
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": delta.model_dump(exclude_none=True),
+                                "finish_reason": None,
+                            }
+                        ],
+                    }
+                    yield f"data: {json.dumps(packet, ensure_ascii=False)}\n\n"
+                if not chunk.continue_stream:
+                    final_packet = {
+                        "id": response_id,
+                        "object": "chat.completion.chunk",
+                        "created": created_ts,
+                        "model": model_name,
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": {},
+                                "finish_reason": "stop",
+                            }
+                        ],
+                    }
+                    yield f"data: {json.dumps(final_packet, ensure_ascii=False)}\n\n"
+                    completed = True
+                    break
+            else:
+                completed = True
+        except ArenaAPIError as exc:
+            if self._should_ban_cookie(exc):
+                try:
+                    self._cookie_pool.ban(cookie)
+                except RuntimeError:
+                    pass
+            raise
+        if completed:
+            yield "data: [DONE]\n\n"
 
     def _parse_stream_payload(self, payload: str) -> Optional[SSEChunk]:
         if payload == "[DONE]":
@@ -343,7 +432,8 @@ class ArenaClient:
         _logger.debug("Ignoring stream prefix %s", prefix)
         return None
 
-    def _unquote_text(self, value: str) -> str:
+    @staticmethod
+    def _unquote_text(value: str) -> str:
         if len(value) >= 2 and value[0] == '"' and value[-1] == '"':
             try:
                 return json.loads(value)
