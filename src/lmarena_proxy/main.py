@@ -22,6 +22,7 @@ def run() -> None:
         cfg = get_settings()
     except RuntimeError as exc:
         print(f"[CONFIG ERROR] {exc}")
+        print("Please edit the .env file with cf_clearance and arena cookies as documented in README.md.")
         _pause_if_needed()
         return
 
