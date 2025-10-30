@@ -10,11 +10,23 @@ const embeddedTableBase64 = __EMBEDDED_CHEAT_TABLE_BASE64__;
 const embeddedTableFilename = __EMBEDDED_TABLE_FILENAME__;
 const configuredCheatEnginePath = __EMBEDDED_CHEAT_ENGINE_PATH__;
 
+function escapeForPowerShellSingleQuoted(value) {
+  return `'${value.replace(/'/g, "''")}'`;
+}
+
+function buildPowerShellStartCommand(executablePath, tablePath, hideWindow) {
+  const filePath = escapeForPowerShellSingleQuoted(executablePath);
+  const argumentList = escapeForPowerShellSingleQuoted(tablePath);
+  const windowStyle = hideWindow ? 'Hidden' : 'Normal';
+  return `Start-Process -FilePath ${filePath} -ArgumentList ${argumentList} -WindowStyle ${windowStyle} -Wait`;
+}
+
 function parseArguments(argv) {
   const options = {
     autoLaunch: true,
     openFolder: false,
-    cheatEnginePath: null
+    cheatEnginePath: null,
+    hideCheatEngineWindow: true
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -26,6 +38,10 @@ function parseArguments(argv) {
     } else if (token === '--cheat-engine' && i + 1 < argv.length) {
       options.cheatEnginePath = argv[i + 1];
       i += 1;
+    } else if (token === '--show-ce' || token === '--show-cheat-engine') {
+      options.hideCheatEngineWindow = false;
+    } else if (token === '--hide-ce' || token === '--hide-cheat-engine') {
+      options.hideCheatEngineWindow = true;
     }
   }
 
@@ -59,7 +75,7 @@ function ensureTableFile() {
   return tablePath;
 }
 
-function attemptLaunchCheatEngine(tablePath, cheatEnginePath) {
+function attemptLaunchCheatEngine(tablePath, cheatEnginePath, hideWindow) {
   const resolvedPath = resolveCheatEnginePath(cheatEnginePath);
 
   if (!resolvedPath) {
@@ -74,18 +90,53 @@ function attemptLaunchCheatEngine(tablePath, cheatEnginePath) {
     return null;
   }
 
-  console.log(`Launching Cheat Engine from: ${resolvedPath}`);
-
-  return new Promise((resolve) => {
+  const launchWithVisibleWindow = (settle) => {
+    console.log(`Launching Cheat Engine from: ${resolvedPath}`);
     const child = spawn(resolvedPath, [tablePath], { stdio: 'inherit' });
 
     child.on('error', (error) => {
       console.error('Failed to launch Cheat Engine:', error.message);
-      resolve(null);
+      settle(null);
     });
 
     child.on('exit', (code) => {
-      resolve(typeof code === 'number' ? code : 0);
+      settle(typeof code === 'number' ? code : 0);
+    });
+  };
+
+  return new Promise((resolve) => {
+    let settled = false;
+    const settle = (value) => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      resolve(value);
+    };
+
+    if (!hideWindow) {
+      launchWithVisibleWindow(settle);
+      return;
+    }
+
+    console.log(`Launching Cheat Engine from: ${resolvedPath} (hidden window mode)`);
+    const command = buildPowerShellStartCommand(resolvedPath, tablePath, true);
+    const args = ['-NoProfile', '-WindowStyle', 'Hidden', '-Command', command];
+    const child = spawn('powershell.exe', args, { stdio: 'inherit' });
+    let fallbackTriggered = false;
+
+    child.on('error', (error) => {
+      fallbackTriggered = true;
+      console.warn('Silent launch via PowerShell failed, falling back to normal window.');
+      console.warn(error.message);
+      launchWithVisibleWindow(settle);
+    });
+
+    child.on('exit', (code) => {
+      if (fallbackTriggered) {
+        return;
+      }
+      settle(typeof code === 'number' ? code : 0);
     });
   });
 }
@@ -125,7 +176,7 @@ async function main() {
 
   let cheatEngineExitCode = null;
   if (options.autoLaunch) {
-    cheatEngineExitCode = await attemptLaunchCheatEngine(tablePath, options.cheatEnginePath);
+    cheatEngineExitCode = await attemptLaunchCheatEngine(tablePath, options.cheatEnginePath, options.hideCheatEngineWindow);
     if (cheatEngineExitCode !== null) {
       console.log(`Cheat Engine exited with code ${cheatEngineExitCode}.`);
     }
