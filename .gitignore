@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.log
+*.sqlite3
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+
+# Build artifacts
+build/
+dist/
+*.spec
+*.exe
+*.apk
+*.aab
+*.ipa
+
+# Kivy / Buildozer
+.buildozer/
+.bin/
+*.apk
+*.keystore
+
+# PyInstaller
+*.manifest
+*.dll
+
+# macOS
+.DS_Store
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+
+# Misc
+*.swp
+Thumbs.db

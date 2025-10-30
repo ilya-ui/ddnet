@@ -1,0 +1,41 @@
+[app]
+title = Phone PC Messenger
+package.name = phonepcmessenger
+package.domain = org.example
+source.dir = .
+source.include_exts = py,png,jpg,kv,json
+
+# (list) Application requirements
+requirements = python3,kivy==2.2.1,websockets==12.0
+
+# (str) Application versioning (method 1)
+version = 0.1.0
+
+# (str) Supported orientation (one of: landscape, portrait or all)
+orientation = portrait
+
+# (list) Permissions
+android.permissions = INTERNET
+
+# (bool) Indicate whether the application should be fullscreen or not
+fullscreen = 0
+
+# (str) Icon of the application
+# icon.filename = %(source.dir)s/data/icon.png
+
+# (list) Source files to exclude (comma separated)
+# source.exclude_exts = spec
+
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
+
+# (str) build output directory
+bin_dir = bin
+
+# (str) where buildozer should look for log files
+log_dir = .buildozer/log
+
+# (bool) enable verbose command journaling
+trace = 0
