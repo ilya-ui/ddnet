@@ -1,0 +1,7 @@
+node_modules/
+.pkg-cache/
+*.exe
+*.log
+dist/
+tmp/
+.DS_Store
