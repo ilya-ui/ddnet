@@ -25,7 +25,7 @@ You need:
 Install dependencies (Windows PowerShell/CMD):
 
 ```bash
-py -m pip install fastapi==0.115.2 uvicorn[standard]==0.32.0 curl_cffi==0.8.1 python-dotenv==1.0.1
+py -m pip install fastapi==0.115.2 uvicorn[standard]==0.32.0 curl_cffi==0.7.4 python-dotenv==1.0.1
 ```
 
 Or equivalently on Unix-like systems:
