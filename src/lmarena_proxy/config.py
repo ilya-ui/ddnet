@@ -47,4 +47,21 @@ class Settings:
         self.api_base_url = self.api_base_url.rstrip("/")
 
 
-settings = Settings()
+_settings_cache: Optional[Settings] = None
+
+
+def get_settings(refresh: bool = False) -> Settings:
+    """Return cached settings, instantiating them if needed."""
+    global _settings_cache
+    if refresh:
+        _settings_cache = None
+    if _settings_cache is None:
+        try:
+            _settings_cache = Settings()
+        except ValueError as exc:
+            raise RuntimeError(
+                "Configuration error: {}. Please configure CF_CLEARANCE and ARENA_AUTH_COOKIES (see README).".format(
+                    exc
+                )
+            ) from exc
+    return _settings_cache

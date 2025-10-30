@@ -7,12 +7,12 @@ import logging
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Callable, Dict, Generator, Iterable, Iterator, List, Optional, Tuple, TypeVar
+from typing import Callable, Dict, Generator, Iterable, Iterator, List, Optional, Tuple, TypeVar, TYPE_CHECKING
 
 from curl_cffi import requests
 from curl_cffi.requests import RequestsError
 
-from .config import settings
+from .config import get_settings
 from .cookie_pool import CookiePool
 from .models import (
     ChatCompletionRequest,
@@ -24,6 +24,9 @@ from .models import (
     ModelItem,
     ModelListResponse,
 )
+
+if TYPE_CHECKING:  # pragma: no cover - typing aid only
+    from .config import Settings
 
 _logger = logging.getLogger(__name__)
 
@@ -63,8 +66,9 @@ class SSEChunk:
 class ArenaClient:
     """Wrapper around the LMArena stream API."""
 
-    def __init__(self, cookie_pool: CookiePool) -> None:
+    def __init__(self, cookie_pool: CookiePool, cfg: "Settings") -> None:
         self._cookie_pool = cookie_pool
+        self._settings = cfg
 
     # ------------------------------------------------------------------
     # Public API
@@ -267,14 +271,15 @@ class ArenaClient:
         return str(content)
 
     def _request_headers(self, cookie_value: str) -> Dict[str, str]:
-        cookie = f"cf_clearance={settings.cf_clearance}; arena-auth-prod-v1={cookie_value}"
+        cfg = self._settings
+        cookie = f"cf_clearance={cfg.cf_clearance}; arena-auth-prod-v1={cookie_value}"
         return {
             "accept": "*/*",
             "accept-language": "en-US,en;q=0.9",
             "content-type": "text/plain;charset=UTF-8",
-            "origin": settings.api_base_url,
+            "origin": cfg.api_base_url,
             "priority": "u=1, i",
-            "referer": f"{settings.api_base_url}/",
+            "referer": f"{cfg.api_base_url}/",
             "sec-ch-ua": '"Microsoft Edge";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
             "sec-ch-ua-arch": '"arm"',
             "sec-ch-ua-bitness": '"64"',
@@ -289,13 +294,14 @@ class ArenaClient:
         }
 
     def _stream_payload(self, payload: Dict[str, object], cookie_value: str) -> Generator[SSEChunk, None, None]:
-        url = f"{settings.api_base_url}/api/stream/create-evaluation"
+        cfg = self._settings
+        url = f"{cfg.api_base_url}/api/stream/create-evaluation"
         data = json.dumps(payload, ensure_ascii=False)
         headers = self._request_headers(cookie_value)
 
         proxies = None
-        if settings.proxy_url:
-            proxies = {"https": settings.proxy_url, "http": settings.proxy_url}
+        if cfg.proxy_url:
+            proxies = {"https": cfg.proxy_url, "http": cfg.proxy_url}
 
         try:
             response = requests.post(
@@ -303,8 +309,8 @@ class ArenaClient:
                 data=data.encode("utf-8"),
                 headers=headers,
                 stream=True,
-                impersonate=settings.impersonate,
-                timeout=settings.request_timeout,
+                impersonate=cfg.impersonate,
+                timeout=cfg.request_timeout,
                 proxies=proxies,
             )
         except RequestsError as exc:
@@ -447,6 +453,7 @@ _client_instance: Optional[ArenaClient] = None
 
 def get_client() -> ArenaClient:
     global _client_instance
+    cfg = get_settings()
     if _client_instance is None:
-        _client_instance = ArenaClient(CookiePool(settings.arena_cookies))
+        _client_instance = ArenaClient(CookiePool(cfg.arena_cookies), cfg)
     return _client_instance

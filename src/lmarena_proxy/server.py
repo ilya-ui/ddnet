@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.concurrency import run_in_threadpool
 
 from .arena_client import ArenaAPIError, get_client
-from .config import settings
+from .config import get_settings
 from .models import ChatCompletionRequest
 
 logger = logging.getLogger(__name__)
@@ -17,13 +17,14 @@ app = FastAPI(title="LMArena Gemini Proxy", version="0.1.0")
 
 
 def _check_auth(request: Request) -> None:
-    if not settings.auth_secret:
+    cfg = get_settings()
+    if not cfg.auth_secret:
         return
     header = request.headers.get("Authorization")
     if not header or not header.startswith("Bearer "):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing bearer token")
     token = header.split(" ", 1)[1].strip()
-    if token != settings.auth_secret:
+    if token != cfg.auth_secret:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid bearer token")
 
 

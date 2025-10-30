@@ -34,6 +34,16 @@ Or equivalently on Unix-like systems:
 python3 -m pip install -r requirements.txt
 ```
 
+### Windows quick start
+
+You can also double-click `run_proxy.bat`. The batch script will:
+
+1. Install/upgrade the required packages via `py -m pip install -r requirements.txt`
+2. Launch the proxy using `py -m lmarena_proxy.main`
+3. Keep the console window open so you can review any errors
+
+The script runs from the repository root and shows the exit code when the proxy stops.
+
 ## Configuration
 
 Create a `.env` file (or export variables) with at least the following keys:
